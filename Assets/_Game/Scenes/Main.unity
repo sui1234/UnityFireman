@@ -490,7 +490,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   left: 1
-  fireman: {fileID: 1309325609}
 --- !u!61 &1346959970
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -562,7 +561,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   left: 0
-  fireman: {fileID: 1309325609}
 --- !u!61 &1731977607
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -30,6 +30,7 @@ public class FiremanController : MonoBehaviour
     public void OnLeftPressed()
     {
         //Debug.Log("move left");
+        //grans for left
         if (currentPosition > 0)
         {
             currentPosition--;
@@ -42,6 +43,7 @@ public class FiremanController : MonoBehaviour
     public void OnRightPressed()
     {
         //Debug.Log("move right");
+        //gräns for right
         if (currentPosition < position.Count - 1)
         {
             currentPosition++;
@@ -50,6 +52,8 @@ public class FiremanController : MonoBehaviour
         
     }
 
+
+    //   give transform middle's position to fireman. 
     private void UpdatePosition()
     {
         transform.position = position[currentPosition].position;
