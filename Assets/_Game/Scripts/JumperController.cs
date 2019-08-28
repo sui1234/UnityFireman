@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class JumperController : MonoBehaviour
 {
-    // Start is called before the first frame update
+    // Start is called before the first frame updaxste
     [SerializeField]
     private List<Transform> positions = new List<Transform>();
-    int currentPosition = 0;
+    public int currentPosition = 0;
 
     float lastMoveTime;
     float moveDelay = 1.0f;
-
+    
     private void Start()
     {
         transform.position = positions[currentPosition].position;
@@ -48,9 +48,28 @@ public class JumperController : MonoBehaviour
     {
         currentPosition++;
 
-        if (currentPosition >= positions.Count) {
-            currentPosition = 0;
+        if (currentPosition >= positions.Count)
+        {
+
+
+            //currentPosition = 0;
+
+            //ta bort vår jumper och eventuellt ge poäng
+            //gameObject.SetActive(false);
+
+            GameObject parent = transform.parent.gameObject;
+            Destroy(parent);
+
+
+
         }
-        transform.position = positions[currentPosition].position;
+
+
+        else
+        {
+            transform.position = positions[currentPosition].position;
+
+        }
+
     }
 }
