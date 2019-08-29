@@ -4,7 +4,15 @@ using UnityEngine;
 
 public class ButtonInput : MonoBehaviour
 {
-    public bool left;
+
+    public enum Button
+    {
+        left,
+        right
+    }
+    //public bool left;
+    public Button button;
+
 
 
     public delegate void ButtonPressed();
@@ -15,12 +23,12 @@ public class ButtonInput : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (OnLeft != null && left)// minst en prenumerant på vårt event
+        if (OnLeft != null && button == Button.left)// minst en prenumerant på vårt event
         {
             OnLeft();
             //fireman.OnLeftPressed();
         }
-        else if(OnRight != null)
+        else if(OnRight != null&& button == Button.right)
         {
             OnRight();
             //fireman.OnRightPressed();
