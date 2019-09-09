@@ -5,7 +5,7 @@ using UnityEngine;
 public class FiremanController : MonoBehaviour
 {
     // Start is called before the first frame update
-    public List<Transform> position = new List<Transform>();
+    public List<Transform> positions = new List<Transform>();
 
     private int currentPosition = 1;
 
@@ -44,7 +44,7 @@ public class FiremanController : MonoBehaviour
     {
         //Debug.Log("move right");
         //gräns for right
-        if (currentPosition < position.Count - 1)
+        if (currentPosition < positions.Count - 1)
         {
             currentPosition++;
             UpdatePosition();
@@ -56,7 +56,7 @@ public class FiremanController : MonoBehaviour
     //   give transform middle's position to fireman. 
     private void UpdatePosition()
     {
-        transform.position = position[currentPosition].position;
+        transform.position = positions[currentPosition].position;
     }
 }
 

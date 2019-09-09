@@ -2,11 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//det måste ha GameManager 
+[RequireComponent(typeof(GameManager))]
+
 public class JumperSpawner : MonoBehaviour
 {
     [SerializeField]
     GameObject jumperPrefab;
 
+    GameManager gameManager;
     float lastSpawnTime;
 
     [Range(0, 5)]
@@ -14,8 +18,12 @@ public class JumperSpawner : MonoBehaviour
     [Range(0, 2)]
     public float deltaRandomSpawn = 0.5f;
 
+    public float spawnDelayDecreaseSpeed = 0.02f;
 
     private float randomSpawnDelay;
+    private bool stop = false;
+
+    private List <GameObject> jumpers = new List<GameObject>();
 
 
     private void Start()
@@ -23,13 +31,14 @@ public class JumperSpawner : MonoBehaviour
         if (jumperPrefab == null)
             return;
 
+        gameManager = GetComponent<GameManager>();
         randomSpawnDelay = spawnDelay;
         SpawnJumper();
     }
 
     private void Update()
     {
-        if (Time.time > lastSpawnTime + randomSpawnDelay)
+        if (!stop  && Time.time > lastSpawnTime + randomSpawnDelay)
         {
             SpawnJumper();
         }
@@ -38,7 +47,39 @@ public class JumperSpawner : MonoBehaviour
     private void SpawnJumper()
     {
         lastSpawnTime = Time.time;
-        randomSpawnDelay = Random.Range(spawnDelay - deltaRandomSpawn, spawnDelay + deltaRandomSpawn);
-        Instantiate(jumperPrefab);
+        float delay = Mathf.Clamp (spawnDelay - ( spawnDelayDecreaseSpeed * gameManager.Points()), deltaRandomSpawn,spawnDelay);
+        randomSpawnDelay = Random.Range(delay - deltaRandomSpawn, delay + deltaRandomSpawn);
+        GameObject jumper = Instantiate(jumperPrefab);
+
+
+        jumpers.Add(jumper);
+
+
+
+
+        JumperController jumperController = jumper.GetComponentInChildren<JumperController>();
+        jumperController.jumperSpawner = this;
+    }
+
+
+    public void DestroyJumper(GameObject jumper)
+    {
+        //ta bort jumper ur listan och destroy jumper
+        jumpers.Remove(jumper);
+
+        Destroy(jumper);
+    }
+
+    public void Stop()
+    {
+        stop = true;
+        //gå igenom listan destroy all
+        for (int i = jumpers.Count - 1; i >= 0; i--)
+        {
+            DestroyJumper(jumpers[i]);
+            
+
+        }
+       
     }
 }

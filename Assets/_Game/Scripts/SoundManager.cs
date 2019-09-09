@@ -4,28 +4,37 @@ using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public AudioClip beep;
+    AudioSource audioSource;
+
     private void OnEnable()
     {
         ButtonInput.OnLeft += ButtonInput_OnLeft;
         ButtonInput.OnRight += ButtonInput_OnRight;
-
+        
     }
 
     private void OnDisable()
     {
         ButtonInput.OnLeft -= ButtonInput_OnLeft;
         ButtonInput.OnRight -= ButtonInput_OnRight;
+    }
 
+
+    private void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+        audioSource.clip = beep;
+    }
+
+
+    private void ButtonInput_OnLeft()
+    {
+        audioSource.Play();
     }
 
     private void ButtonInput_OnRight()
     {
-        Debug.Log("PIP- Right");
-    }
-
-    private void ButtonInput_OnLeft()
-    {
-        Debug.Log("PIP- left");
+        audioSource.Play();
     }
 }

@@ -4,7 +4,11 @@ using UnityEngine;
 
 public class JumperController : MonoBehaviour
 {
-    // Start is called before the first frame updaxste
+    public delegate void Jumper();
+    public static event Jumper OnJumperCrash;
+    public static event Jumper OnJumperSave;
+
+
     [SerializeField]
     private List<Transform> positions = new List<Transform>();
     public int currentPosition = 0;
@@ -16,7 +20,15 @@ public class JumperController : MonoBehaviour
 
     private bool dead = false;
     float deathDelay = 0.5f;
-    
+
+    //[HideInInspector]
+    //public GameManager gameManager;
+
+
+    [HideInInspector]
+    public JumperSpawner jumperSpawner;
+
+
     private void Start()
     {
         UpdatePosition();
@@ -82,7 +94,7 @@ public class JumperController : MonoBehaviour
         transform.position = positions[currentPosition].position;
         //if (transform.position.y < -2.7)
 
-        if(positions[currentPosition].gameObject.tag=="DangerPosition")
+        if(positions[currentPosition].gameObject.tag == "DangerPosition")
         {
             //Debug.Log("Danger!!!");
 
@@ -93,10 +105,17 @@ public class JumperController : MonoBehaviour
             if (hit.collider == null)
             {
                 StartCoroutine(Crash());
+                if (OnJumperCrash != null)
+                    OnJumperCrash();
+
+                //gameManager.JumperCrashed();
                 //Debug.Log("Saved!" + hit.collider.gameObject.name);
             }
             else
             {
+                OnJumperSave();
+
+                //gameManager.JumperSaved();
                 //säg till game manager att vi räddats.
             }
             
@@ -119,10 +138,13 @@ public class JumperController : MonoBehaviour
         DestroyJumper();
 
     }
+
     void DestroyJumper()
     {
         GameObject parent = transform.parent.gameObject;
-        Destroy(parent);
+        jumperSpawner.DestroyJumper(parent);
+        //GameObject parent = transform.parent.gameObject;
+        //Destroy(parent);
 
     }
 }
