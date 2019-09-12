@@ -21,6 +21,8 @@ public class JumperController : MonoBehaviour
     private bool dead = false;
     float deathDelay = 0.5f;
 
+    
+
     //[HideInInspector]
     //public GameManager gameManager;
 
@@ -32,9 +34,21 @@ public class JumperController : MonoBehaviour
     private void Start()
     {
         UpdatePosition();
+        /*if (Input.GetMouseButtonDown(0))
+        {
+
+        StartAfterButtonIsClicked();
+    
+        }*/
         lastMoveTime = Time.time;
-        StartCoroutine (Move());
+        StartCoroutine(Move());
+
     }
+    /*private void StartAfterButtonIsClicked()
+    {
+        lastMoveTime = Time.time;
+        StartCoroutine(Move());
+    }*/
 
 
 

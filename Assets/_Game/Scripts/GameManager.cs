@@ -3,20 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
-
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     string sceneName = "Main";
+    
     public int startLives = 3;
     private int points = 0;
+    StartButtonController startButtonController;
+
+
 
     public TextMeshPro ScoreText;
     public LivesController livesController;
     JumperSpawner jumperSpawner;
+    
 
     public GameObject gameOverSign;
     public GameObject input;
+
 
 
     private void OnEnable()
@@ -31,13 +37,27 @@ public class GameManager : MonoBehaviour
         JumperController.OnJumperSave -= JumperCrashed;
     }
 
+
     private void Start()
     {
         UpdateScoreLabel();
-        livesController.InitLives(startLives);
-        jumperSpawner = GetComponent<JumperSpawner>();// can use public to show in inspector.
         gameOverSign.SetActive(false);
+        livesController.InitLives(startLives);
+
+        //if (Input.GetMouseButtonDown(0))
+        //{
+        //StartAfterButtonIsClicked();
+        //}
+        jumperSpawner = GetComponent<JumperSpawner>();
+      
+        // can use public to show in inspector.
     }
+
+   /* private void StartAfterButtonIsClicked()
+    {
+        jumperSpawner = GetComponent<JumperSpawner>();// can use public to show in inspector.
+
+    }*/
 
     //get points
     public int Points()
@@ -82,4 +102,12 @@ public class GameManager : MonoBehaviour
         //restart
         SceneManager.LoadScene(sceneName);
     }
+
+    
+
+   
+    
+
+  
+  
 }

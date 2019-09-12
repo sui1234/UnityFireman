@@ -30,7 +30,7 @@ public class FiremanController : MonoBehaviour
     public void OnLeftPressed()
     {
         //Debug.Log("move left");
-        //grans for left
+        //gräns for left
         if (currentPosition > 0)
         {
             currentPosition--;

@@ -18,7 +18,7 @@ public class ButtonInput : MonoBehaviour
     public delegate void ButtonPressed();
     public static event ButtonPressed OnLeft;
     public static event ButtonPressed OnRight;
-
+    
     //public FiremanController fireman;
 
 
@@ -32,6 +32,8 @@ public class ButtonInput : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
+
+           
             Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
 
@@ -41,6 +43,8 @@ public class ButtonInput : MonoBehaviour
                 OnLeft();
             else if (OnRight != null && hit.collider != null && hit.collider.tag == "Right")
                 OnRight();
+        
+
 
 
         }
